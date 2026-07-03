@@ -1,0 +1,33 @@
+<app-loading />
+<div class="app-shell">
+  <aside class="sidebar">
+    <a class="logo" routerLink="/dashboard">
+      <span>R</span>
+      <strong>Reserveo</strong>
+    </a>
+    <nav aria-label="Principal">
+      <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+      <a routerLink="/appointments" routerLinkActive="active">Agenda</a>
+      <a routerLink="/customers" routerLinkActive="active">Clientes</a>
+      <a routerLink="/professionals" routerLinkActive="active">Profissionais</a>
+      <a routerLink="/services" routerLinkActive="active">Servicos</a>
+    </nav>
+  </aside>
+
+  <div class="workspace">
+    <header class="topbar">
+      <div>
+        <span class="muted">Ecossistema AuthCore</span>
+        <strong>{{ user()?.role ?? 'CUSTOMER' }}</strong>
+      </div>
+      <div class="user-box">
+        <span class="avatar">{{ initials() }}</span>
+        <span>{{ user()?.name ?? 'Usuario' }}</span>
+        <button type="button" (click)="logout()">Sair</button>
+      </div>
+    </header>
+    <main>
+      <router-outlet />
+    </main>
+  </div>
+</div>
