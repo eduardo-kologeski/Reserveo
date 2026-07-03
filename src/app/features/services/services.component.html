@@ -1,0 +1,36 @@
+<section class="feature-grid">
+  <form [formGroup]="form" (ngSubmit)="save()" class="panel">
+    <h1>Servicos</h1>
+    <label>Nome<input formControlName="name" /></label>
+    <label>Descricao<textarea formControlName="description"></textarea></label>
+    <label>Duracao em minutos<input type="number" formControlName="durationMinutes" /></label>
+    <label>Preco<input type="number" formControlName="price" /></label>
+    <label class="inline"><input type="checkbox" formControlName="active" /> Ativo</label>
+    <div class="actions">
+      <button type="submit">{{ editingId ? 'Salvar alteracoes' : 'Cadastrar servico' }}</button>
+      <button type="button" class="secondary" (click)="reset()">Limpar</button>
+    </div>
+  </form>
+
+  <section class="panel">
+    <h2>Catalogo</h2>
+    @if (apiMessage()) {
+      <p class="notice">{{ apiMessage() }}</p>
+    }
+    <div class="table">
+      @for (service of services(); track service.id ?? service.name) {
+        <article>
+          <strong>{{ service.name }}</strong>
+          <span>{{ service.durationMinutes }} min · R$ {{ service.price }}</span>
+          <span>{{ service.description }}</span>
+          <div>
+            <button type="button" class="secondary" (click)="edit(service)">Editar</button>
+            <button type="button" class="danger" (click)="remove(service)">Excluir</button>
+          </div>
+        </article>
+      } @empty {
+        <p>Nenhum servico carregado.</p>
+      }
+    </div>
+  </section>
+</section>

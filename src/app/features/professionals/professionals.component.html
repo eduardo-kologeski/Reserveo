@@ -1,0 +1,36 @@
+<section class="feature-grid">
+  <form [formGroup]="form" (ngSubmit)="save()" class="panel">
+    <h1>Profissionais</h1>
+    <label>Nome<input formControlName="name" /></label>
+    <label>Email<input type="email" formControlName="email" /></label>
+    <label>Telefone<input formControlName="phone" /></label>
+    <label>Especialidade<input formControlName="specialty" /></label>
+    <label class="inline"><input type="checkbox" formControlName="active" /> Ativo</label>
+    <div class="actions">
+      <button type="submit">{{ editingId ? 'Salvar alteracoes' : 'Cadastrar profissional' }}</button>
+      <button type="button" class="secondary" (click)="reset()">Limpar</button>
+    </div>
+  </form>
+
+  <section class="panel">
+    <h2>Equipe</h2>
+    @if (apiMessage()) {
+      <p class="notice">{{ apiMessage() }}</p>
+    }
+    <div class="table">
+      @for (professional of professionals(); track professional.id ?? professional.email) {
+        <article>
+          <strong>{{ professional.name }}</strong>
+          <span>{{ professional.specialty }} · {{ professional.email }}</span>
+          <span>{{ professional.phone }} · {{ professional.active ? 'Ativo' : 'Inativo' }}</span>
+          <div>
+            <button type="button" class="secondary" (click)="edit(professional)">Editar</button>
+            <button type="button" class="danger" (click)="remove(professional)">Excluir</button>
+          </div>
+        </article>
+      } @empty {
+        <p>Nenhum profissional carregado.</p>
+      }
+    </div>
+  </section>
+</section>

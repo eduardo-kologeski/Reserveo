@@ -1,0 +1,106 @@
+.feature-grid {
+  display: grid;
+  grid-template-columns: minmax(300px, 420px) minmax(0, 1fr);
+  gap: 20px;
+}
+
+.panel {
+  border: 1px solid #d9e2dc;
+  border-radius: 8px;
+  background: #fff;
+  padding: 24px;
+}
+
+form {
+  align-self: start;
+  display: grid;
+  gap: 14px;
+}
+
+h1, h2 {
+  margin-top: 0;
+}
+
+label {
+  display: grid;
+  gap: 7px;
+  color: #334155;
+  font-weight: 700;
+}
+
+.inline {
+  grid-template-columns: auto 1fr;
+  align-items: center;
+}
+
+input, textarea, select, button {
+  min-height: 40px;
+  border-radius: 6px;
+  font: inherit;
+}
+
+input, textarea, select {
+  width: 100%;
+  border: 1px solid #cbd5e1;
+  padding: 8px 10px;
+}
+
+textarea {
+  min-height: 88px;
+  resize: vertical;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+button {
+  border: 0;
+  padding: 0 14px;
+  background: #0f766e;
+  color: #fff;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.secondary {
+  border: 1px solid #cbd5e1;
+  background: #fff;
+  color: #0f172a;
+}
+
+.danger {
+  background: #be123c;
+}
+
+.notice {
+  padding: 12px;
+  border-radius: 6px;
+  background: #fff7ed;
+  color: #9a3412;
+}
+
+.table {
+  display: grid;
+  gap: 12px;
+}
+
+article {
+  display: grid;
+  gap: 7px;
+  padding: 14px;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+}
+
+article span {
+  color: #64748b;
+}
+
+@media (max-width: 980px) {
+  .feature-grid {
+    grid-template-columns: 1fr;
+  }
+}
