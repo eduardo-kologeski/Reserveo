@@ -1,0 +1,25 @@
+<section class="page-heading">
+  <div>
+    <p>Dashboard</p>
+    <h1>Operacao do dia</h1>
+  </div>
+  <span>Atualizado pela API do Reserveo quando disponivel</span>
+</section>
+
+<section class="metrics">
+  @for (metric of metrics; track metric.label) {
+    <article>
+      <span>{{ metric.label }}</span>
+      <strong>{{ metric.value }}</strong>
+    </article>
+  }
+</section>
+
+<section class="panel">
+  <h2>Proximos horarios</h2>
+  <div class="timeline">
+    <p><strong>09:00</strong> Ana Souza com Dr. Bruno</p>
+    <p><strong>10:30</strong> Marcos Lima com Carla Mendes</p>
+    <p><strong>14:00</strong> Julia Rocha com Dr. Bruno</p>
+  </div>
+</section>

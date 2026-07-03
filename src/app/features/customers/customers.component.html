@@ -1,0 +1,36 @@
+<section class="feature-grid">
+  <form [formGroup]="form" (ngSubmit)="save()" class="panel">
+    <h1>Clientes</h1>
+    <label>Nome<input formControlName="name" /></label>
+    <label>Email<input type="email" formControlName="email" /></label>
+    <label>Telefone<input formControlName="phone" /></label>
+    <label>Documento<input formControlName="document" /></label>
+    <label class="inline"><input type="checkbox" formControlName="active" /> Ativo</label>
+    <div class="actions">
+      <button type="submit">{{ editingId ? 'Salvar alteracoes' : 'Cadastrar cliente' }}</button>
+      <button type="button" class="secondary" (click)="reset()">Limpar</button>
+    </div>
+  </form>
+
+  <section class="panel">
+    <h2>Base de clientes</h2>
+    @if (apiMessage()) {
+      <p class="notice">{{ apiMessage() }}</p>
+    }
+    <div class="table">
+      @for (customer of customers(); track customer.id ?? customer.email) {
+        <article>
+          <strong>{{ customer.name }}</strong>
+          <span>{{ customer.email }} · {{ customer.phone }}</span>
+          <span>{{ customer.document }} · {{ customer.active ? 'Ativo' : 'Inativo' }}</span>
+          <div>
+            <button type="button" class="secondary" (click)="edit(customer)">Editar</button>
+            <button type="button" class="danger" (click)="remove(customer)">Excluir</button>
+          </div>
+        </article>
+      } @empty {
+        <p>Nenhum cliente carregado.</p>
+      }
+    </div>
+  </section>
+</section>

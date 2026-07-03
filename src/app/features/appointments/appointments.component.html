@@ -1,0 +1,61 @@
+<section class="feature-grid">
+  <form [formGroup]="form" (ngSubmit)="save()" class="panel">
+    <h1>Agenda</h1>
+    <label>Cliente ID<input type="number" formControlName="customerId" /></label>
+    <label>Profissional ID<input type="number" formControlName="professionalId" /></label>
+    <label>Servico ID<input type="number" formControlName="serviceId" /></label>
+    <label>Inicio<input type="datetime-local" formControlName="startDateTime" /></label>
+    <label>Fim<input type="datetime-local" formControlName="endDateTime" /></label>
+    <label>
+      Status
+      <select formControlName="status">
+        @for (status of statuses; track status) {
+          <option [value]="status">{{ status }}</option>
+        }
+      </select>
+    </label>
+    <label>Observacoes<textarea formControlName="notes"></textarea></label>
+    <div class="actions">
+      <button type="submit">{{ editingId ? 'Salvar alteracoes' : 'Criar agendamento' }}</button>
+      <button type="button" class="secondary" (click)="reset()">Limpar</button>
+    </div>
+  </form>
+
+  <section class="panel">
+    <h2>Horarios</h2>
+    <form [formGroup]="filters" class="filters" (ngSubmit)="load()">
+      <input type="date" formControlName="date" aria-label="Data" />
+      <input type="number" formControlName="customerId" placeholder="Cliente ID" />
+      <input type="number" formControlName="professionalId" placeholder="Profissional ID" />
+      <select formControlName="status">
+        <option value="">Todos os status</option>
+        @for (status of statuses; track status) {
+          <option [value]="status">{{ status }}</option>
+        }
+      </select>
+      <button type="submit">Filtrar</button>
+    </form>
+
+    @if (apiMessage()) {
+      <p class="notice">{{ apiMessage() }}</p>
+    }
+
+    <div class="table">
+      @for (appointment of appointments(); track appointment.id ?? appointment.startDateTime) {
+        <article>
+          <strong>{{ appointment.startDateTime }} - {{ appointment.endDateTime }}</strong>
+          <span>Cliente {{ appointment.customerId }} · Profissional {{ appointment.professionalId }} · Servico {{ appointment.serviceId }}</span>
+          <span class="status">{{ appointment.status }}</span>
+          <span>{{ appointment.notes }}</span>
+          <div>
+            <button type="button" class="secondary" (click)="edit(appointment)">Editar</button>
+            <button type="button" class="secondary" (click)="cancel(appointment)">Cancelar</button>
+            <button type="button" class="danger" (click)="remove(appointment)">Excluir</button>
+          </div>
+        </article>
+      } @empty {
+        <p>Nenhum agendamento carregado.</p>
+      }
+    </div>
+  </section>
+</section>
