@@ -1,6 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { AuthErrorMessageService } from '../../../core/services/auth-error-message.service';
 import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
@@ -17,6 +18,7 @@ export class LoginComponent {
   constructor(
     formBuilder: FormBuilder,
     private readonly authService: AuthService,
+    private readonly authErrorMessageService: AuthErrorMessageService,
     private readonly router: Router
   ) {
     this.form = formBuilder.nonNullable.group({
@@ -37,9 +39,9 @@ export class LoginComponent {
     this.loading.set(true);
     this.authService.login(this.form.getRawValue()).subscribe({
       next: () => this.router.navigateByUrl('/dashboard'),
-      error: () => {
+      error: error => {
         this.loading.set(false);
-        this.errorMessage.set('Nao foi possivel autenticar com o AuthCore. Confira email e senha.');
+        this.errorMessage.set(this.authErrorMessageService.loginMessage(error));
       }
     });
   }
