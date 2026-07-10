@@ -11,7 +11,7 @@ import { TokenStorageService } from './token-storage.service';
 export class AuthService {
   private readonly authUrl = `${environment.authCoreApiUrl}/auth`;
   private readonly usersUrl = `${environment.authCoreApiUrl}/users`;
-  private readonly currentUserSignal = signal<User | null>(this.userFromToken());
+  private readonly currentUserSignal = signal<User | null>(null);
 
   readonly currentUser = this.currentUserSignal.asReadonly();
 
@@ -19,7 +19,9 @@ export class AuthService {
     private readonly http: HttpClient,
     private readonly router: Router,
     private readonly tokenStorage: TokenStorageService
-  ) {}
+  ) {
+    this.currentUserSignal.set(this.userFromToken());
+  }
 
   login(request: LoginRequest): Observable<User | null> {
     return this.http.post<AuthResponse>(`${this.authUrl}/login`, request).pipe(
